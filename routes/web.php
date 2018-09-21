@@ -15,13 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hello', function () {
+Route::get('hello', function() {
 	$tasks= DB::table('tasks')->get();
 	return view('hello', compact('tasks'));
 });
 
-Route::get('/tasks/{task}', function ($id) {
-	$task= DB::table('tasks')->find($id);
-	dd($task);
-	return view('hello', compact('task'));
-});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('tasks', 'TaskController');
